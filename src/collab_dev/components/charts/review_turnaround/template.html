@@ -1,0 +1,86 @@
+<div class="chart-container review-turnaround-container">
+	<h2 class="chart-title">Review Turnaround</h2>
+	{% if turnaround_data %}
+	<div class="metrics-container">
+		<div class="metric">
+			<div class="metric-label">
+				Review Turnaround Time (RTT)
+				<span class="relative inline-block group">
+					<button type="button" class="theme-tooltip-btn">?</button>
+					<div class="tooltip-content">
+						<div>Median time to first review</div>
+						<div class="tooltip-arrow"></div>
+					</div>
+				</span>
+			</div>
+			<div class="metric-value">
+				{{ humanize_time(turnaround_data.median_hours) }}
+			</div>
+		</div>
+
+		<div class="metric">
+			<div class="metric-label">
+				PRs Reviewed Within 1 Hour
+				<span class="relative inline-block group">
+					<button type="button" class="theme-tooltip-btn">?</button>
+					<div class="tooltip-content">
+						<div>PRs that received a review within 1 hour</div>
+						<div class="tooltip-arrow"></div>
+					</div>
+				</span>
+			</div>
+			<div class="metric-value">
+				{{ "%.1f"|format(turnaround_data.within_1h) }}%
+			</div>
+		</div>
+	</div>
+
+	<!-- Plotly chart -->
+	<div class="plotly-chart-container">
+		{% if turnaround_data.plot_html %} {{ turnaround_data.plot_html | safe }} {%
+		endif %}
+	</div>
+
+	<div class="chart-footer">
+		<h3>Review Turnaround Distribution</h3>
+
+		<div class="chart-caption">
+			Tracks how long it takes to get the first review (approval/changes
+			requested/commented) after a review request. If no review request exists,
+			measures from PR creation. This helps teams maintain quick feedback loops
+			and streamline collaboration.
+		</div>
+	</div>
+
+	{% else %}
+	<p>No review turnaround data available</p>
+	{% endif %}
+</div>
+
+<script>
+	// Ensure the Plotly chart is properly sized
+	document.addEventListener("DOMContentLoaded", function () {
+		// Find all Plotly charts in this component
+		var charts = document.querySelectorAll(
+			".plotly-chart-container .js-plotly-plot"
+		);
+
+		// Apply sizing to each chart
+		charts.forEach(function (chart) {
+			// Set the height directly on the chart
+			chart.style.height = "150px";
+
+			// Find the main SVG and set its height
+			var svg = chart.querySelector(".main-svg");
+			if (svg) {
+				svg.style.height = "150px";
+			}
+
+			// Hide the modebar
+			var modebar = chart.querySelector(".modebar");
+			if (modebar) {
+				modebar.style.display = "none";
+			}
+		});
+	});
+</script>

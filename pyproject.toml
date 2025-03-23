@@ -1,0 +1,48 @@
+[project]
+name = "collab-dev"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [{ name = "Zak Mandhro", email = "zak.mandhro@gmail.com" }]
+dependencies = [
+  "flask>=3.1.0",
+  "pandas>=2.2.3",
+  "numpy>=1.26.0",
+  "plotly>=5.18.0",
+  "dotenv>=0.9.9",
+  "requests>=2.31.0",
+]
+requires-python = "==3.12.*"
+readme = "README.md"
+license = { text = "MIT" }
+
+
+[tool.pdm]
+distribution = false
+
+[tool.pdm.scripts]
+serve = "python src/collab_dev/app.py"
+collect = "python src/collab_dev/collect.py"
+lint = "ruff check src/"
+format = "ruff format src/"
+lint-fix = "ruff check --fix src/"
+
+[tool.pdm.dev-dependencies]
+dev = ["ruff>=0.11.2"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "B"]
+ignore = []
+
+# Per-file ignores for visualization-related files with long template strings
+[tool.ruff.lint.per-file-ignores]
+"src/collab_dev/charts/pr_sankey/__init__.py" = ["E501"]
+"src/collab_dev/charts/review_coverage/__init__.py" = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"

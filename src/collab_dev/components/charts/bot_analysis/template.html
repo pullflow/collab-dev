@@ -1,0 +1,63 @@
+<div class="chart-container">
+	<h2 class="chart-title">Bot Analysis</h2>
+	{% if stats %}
+	<div class="metrics-container">
+		<div class="metric">
+			<div class="metric-label">
+				Bot PRs
+				<span class="relative inline-block group">
+					<button type="button" class="theme-tooltip-btn">?</button>
+					<div class="tooltip-content">
+						<div>Percentage of PRs created by bots</div>
+						<div class="tooltip-arrow"></div>
+					</div>
+				</span>
+			</div>
+			<div class="metric-value">{{ stats.bot_percentage }}%</div>
+		</div>
+
+		<div class="metric">
+			<div class="metric-label">
+				Human PRs
+				<span class="relative inline-block group">
+					<button type="button" class="theme-tooltip-btn">?</button>
+					<div class="tooltip-content">
+						<div>Percentage of PRs created by humans</div>
+						<div class="tooltip-arrow"></div>
+					</div>
+				</span>
+			</div>
+			<div class="metric-value">{{ stats.human_percentage }}%</div>
+		</div>
+	</div>
+
+	{% if stats.bot_breakdown|length == 0 %}
+	<p>No bot activity detected in this repository.</p>
+
+	{% elif stats.bot_breakdown|length == 1 %}
+	<p>
+		The bot PRs for this repo are all coming from
+		<strong>{{ stats.bot_breakdown[0].actor }}</strong>.
+	</p>
+
+	{% else %}
+	<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+	<div id="bot-breakdown-chart" class="chart">
+		{% if bot_breakdown_html %} {{ bot_breakdown_html | safe }} {% endif %}
+	</div>
+	{% endif %}
+
+	<div class="chart-footer">
+		<h3>Bot PRs Breakdown</h3>
+
+		<div class="chart-caption">
+			Breaks down the proportion of PRs authored by humans vs. bots (including a
+			bot-specific breakdown). This insight helps maintainers gauge efficiency
+			and community engagement.
+		</div>
+	</div>
+
+	{% else %}
+	<div class="no-data-message">No PR data available</div>
+	{% endif %}
+</div>

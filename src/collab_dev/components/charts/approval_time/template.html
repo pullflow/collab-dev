@@ -1,0 +1,40 @@
+<div class="approval-time-chart">
+	<h2 class="chart-title">Approval Time</h2>
+	{% if approval_data %}
+	<div class="metrics-container">
+		<div class="metric">
+			<div class="metric-label">
+				Overall Median Approval Time
+				<span class="relative inline-block group">
+					<button type="button" class="theme-tooltip-btn">?</button>
+					<div class="tooltip-content">
+						<div>Median time between review request and approval</div>
+						<div class="tooltip-arrow"></div>
+					</div>
+				</span>
+			</div>
+			<div class="metric-value">
+				{{ "%.1f"|format(approval_data.overall_median) }} hours
+			</div>
+		</div>
+	</div>
+
+	<div id="approval-time-plot">
+		{% if approval_data.plot_html %} {{ approval_data.plot_html | safe }} {%
+		endif %}
+	</div>
+
+	<div class="chart-footer">
+		<h3>PR Approval Time by Size</h3>
+
+		<div class="chart-caption">
+			Shows the median approval times for Pull Requests (PRs), grouped by size.
+			This helps teams understand the impact of PR size on how quickly approvals
+			happen.
+		</div>
+	</div>
+
+	{% else %}
+	<p>No approval time data available</p>
+	{% endif %}
+</div>

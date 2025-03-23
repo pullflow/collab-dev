@@ -1,0 +1,425 @@
+:root {
+  --color-primary: #795dbd;
+  --color-secondary: #a592d3;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #f1f3f5;
+  --text-primary: #24292e;
+  --text-secondary: #586069;
+  --text-on-dark: #ffffff;
+  --color-error: #e74c3c;
+}
+
+/* Stats and metrics */
+.stats-header {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-label-container {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  line-height: 1;
+}
+
+.stat-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #586069;
+  gap: 5px;
+}
+
+.stat-value {
+  display: block;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.chart-title {
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Chart containers */
+.chart-box {
+  border: 1px solid var(--bg-tertiary);
+  border-radius: 6px;
+  background-color: var(--bg-primary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  padding: 15px;
+}
+
+/* Chart footer layout */
+.chart-footer {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin: 1rem 0 0 0;
+}
+
+.chart-footer h3 {
+  flex: 0 0 auto;
+  margin: 0 !important;
+  line-height: 1.4;
+  white-space: normal;
+  max-width: 220px;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+.chart-footer .chart-caption {
+  flex: 1;
+  margin: 0 !important;
+  padding-top: 2px;
+}
+
+/* Chart titles */
+.chart-container h3,
+.review-funnel-chart h3,
+.approval-time-chart h3,
+.review-turnaround-chart h3,
+.wait-time-chart h3,
+.pr-merge-time-chart h3 {
+  color: var(--color-primary);
+  font-size: 1.1rem;
+  font-weight: 500;
+  hyphens: auto;
+  word-wrap: break-word;
+}
+
+/* Remove conflicting h2 styles */
+.chart-box h3 {
+  color: var(--color-primary);
+}
+
+/* Chart caption */
+.chart-caption {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* Metrics */
+.metric-container {
+  text-align: center;
+  margin: 15px 0;
+  padding: 0 15px;
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--text-primary) !important;
+}
+
+.metric-help {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+/* Repo stats */
+.repo-stats {
+  background: var(--bg-secondary);
+  border: 1px solid var(--bg-tertiary);
+  border-radius: 6px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.repo-stats h2 {
+  margin-top: 0;
+  color: var(--color-primary);
+}
+
+.repo-stats ul {
+  list-style: none;
+  padding: 0;
+}
+
+.repo-stats li {
+  margin: 8px 0;
+  color: var(--text-secondary);
+}
+
+/* Error messages */
+.error {
+  padding: 16px;
+  background: var(--color-error);
+  border: 1px solid var(--color-error);
+  border-radius: 6px;
+}
+
+/* Grid layout */
+.grid {
+  display: grid;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-cols-1 {
+  grid-template-columns: 1fr;
+}
+
+.col-span-1 {
+  grid-column: span 1;
+}
+
+.col-span-2 {
+  grid-column: span 2;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: var(--color-primary);
+  color: var(--text-on-dark);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn:hover {
+  background-color: var(--color-secondary);
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--bg-tertiary);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-tertiary);
+}
+
+/* Tooltips */
+.theme-tooltip-btn {
+  background-color: var(--color-secondary);
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 9999px;
+  color: white;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.theme-tooltip-btn:hover {
+  opacity: 0.9;
+}
+
+.group {
+  position: relative;
+}
+
+.tooltip-content {
+  visibility: hidden;
+  position: fixed;
+  z-index: 999999;
+  background-color: var(--bg-primary);
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  border: 1px solid var(--bg-tertiary);
+  font-size: 0.875rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  width: max-content;
+  max-width: 250px;
+}
+
+.group:hover .tooltip-content {
+  visibility: visible;
+}
+
+.tooltip-arrow {
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background-color: var(--bg-primary);
+  border-right: 1px solid var(--bg-tertiary);
+  border-bottom: 1px solid var(--bg-tertiary);
+  z-index: 999998;
+}
+
+/* Chart specific styles */
+.chart-container,
+.review-funnel-chart,
+.approval-time-chart,
+.review-turnaround-chart,
+.wait-time-chart,
+.pr-merge-time-chart,
+.pr-sankey-chart,
+.review-coverage-chart,
+.bot-analysis-chart {
+  padding: 0;
+}
+
+/* Ensure consistent pie chart sizing */
+#contribution-plot,
+#review-coverage-plot,
+#wait-time-plot {
+  height: 400px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+  /* Allow legend to overflow */
+  margin-bottom: 20px !important;
+  /* Increased margin below chart */
+}
+
+#contribution-plot .js-plotly-plot,
+#review-coverage-plot .js-plotly-plot,
+#wait-time-plot .js-plotly-plot {
+  height: 400px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+#contribution-plot .plot-container,
+#review-coverage-plot .plot-container,
+#wait-time-plot .plot-container {
+  height: 400px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Add padding to chart boxes containing pie charts */
+.chart-box:has(#contribution-plot),
+.chart-box:has(#review-coverage-plot),
+.chart-box:has(#wait-time-plot) {
+  padding: 20px !important;
+  height: auto !important;
+  min-height: 400px !important;
+  /* Match chart height */
+}
+
+/* Ensure legend stays within bounds */
+.js-plotly-plot .legend {
+  max-width: 90% !important;
+  overflow-wrap: break-word !important;
+}
+
+/* Metrics display */
+.metrics-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.metric {
+  flex: 1;
+  padding: 15px;
+  text-align: center;
+}
+
+.metric-label-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  line-height: 1;
+}
+
+.metric-label {
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.metric-value {
+  font-size: 36px;
+  font-weight: bold;
+  color: var(--text-primary) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .col-span-1,
+  .col-span-2 {
+    grid-column: span 1;
+  }
+
+  .stats-header {
+    flex-direction: column;
+  }
+
+  .chart-footer {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .chart-footer h3 {
+    min-width: unset;
+    max-width: unset;
+  }
+
+  .chart-footer .chart-caption {
+    padding-top: 0;
+  }
+}
+
+/* Modal styling */
+.htmx-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.htmx-modal {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  max-width: 600px;
+  width: 100%;
+  z-index: 200;
+}
+
+.theme-tooltip-btn {
+  background-color: var(--color-secondary);
+}
+
+.theme-tooltip-btn:hover {
+  opacity: 0.9;
+}
+
+/* End of file */

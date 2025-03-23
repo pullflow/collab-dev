@@ -1,0 +1,3 @@
+"""
+Charts package initialization.
+"""
