@@ -2,7 +2,11 @@
 name = "collab-dev"
 version = "0.1.0"
 description = "Default template for PDM package"
-authors = [{ name = "Zak Mandhro", email = "zak.mandhro@gmail.com" }]
+authors = [
+  { name = "Amna Anwar", email = "amna@pullflow.com" },
+  { name = "Alissa Vuillier", email = "alissa@pullflow.com" },
+  { name = "Zak Mandhro", email = "zak@pullflow.com" },
+]
 dependencies = [
   "flask>=3.1.0",
   "pandas>=2.2.3",
