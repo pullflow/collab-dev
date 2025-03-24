@@ -104,7 +104,7 @@ def render(data):
         fig, median_time = create_pr_merge_time_chart(data)
 
         if fig is None:
-            return render_template("components/charts/pr_merge_time/template.html", pr_merge_data=None)
+            return render_template("components/charts/merge_time/template.html", pr_merge_data=None)
 
         # Get plotly config from theme
         config = get_plotly_config()
@@ -116,8 +116,8 @@ def render(data):
         pr_merge_data = {"median_time": median_time, "plot_html": plot_html}
 
         return render_template(
-            "components/charts/pr_merge_time/template.html", pr_merge_data=pr_merge_data, humanize_time=humanize_time
+            "components/charts/merge_time/template.html", pr_merge_data=pr_merge_data, humanize_time=humanize_time
         )
 
     except Exception:
-        return render_template("components/charts/pr_merge_time/template.html", pr_merge_data=None)
+        return render_template("components/charts/merge_time/template.html", pr_merge_data=None)

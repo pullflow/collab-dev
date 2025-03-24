@@ -7,8 +7,7 @@
 </div>
 {% for chart in charts %}
 <div class="mb-6 shadow-md p-4 rounded-lg bg-white">
-  {{ chart.title }}
-  {{ chart.html|safe }}
+  {{ chart|safe }}
 </div>
 {% endfor %}
 {% endblock %}

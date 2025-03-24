@@ -1,0 +1,11 @@
+{% extends "components/charts/chart.html" %}
+{% from "components/charts/metric.html" import metric %}
+{% block title %}Code Review Workflow{% endblock %}
+{% block metrics %}
+{{ metric(label="Pull Requests", value=pr_count, tip="Number of pull requests") }}
+{{ metric(label="Events", value=event_count, tip="Number of events") }}
+{% endblock %}
+{% block chart %}
+{{ chart_content | safe }}
+{% endblock %}
+{% block caption %}Visualizes the code review workflow process{% endblock %}

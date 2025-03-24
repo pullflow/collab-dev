@@ -1,64 +1,27 @@
-<div class="chart-container">
-	<h2 class="chart-title">Contribution</h2>
-	{% if contribution_data and contribution_data.stats %}
-	<div class="stats-header">
-		<div class="stat-item">
-			<div class="stat-label">
-				Core Team PRs
-				<span class="relative inline-block group">
-					<button type="button" class="theme-tooltip-btn">?</button>
-					<div class="tooltip-content">
-						<div>Percentage of PRs created by the core team</div>
-						<div class="tooltip-arrow"></div>
-					</div>
-				</span>
-			</div>
-			<span class="stat-value">{{ contribution_data.stats.core_team | round(1) }}%</span>
-		</div>
-		<div class="stat-item">
-			<div class="stat-label">
-				Community PRs
-				<span class="relative inline-block group">
-					<button type="button" class="theme-tooltip-btn">?</button>
-					<div class="tooltip-content">
-						<div>Percentage of PRs created by the community</div>
-						<div class="tooltip-arrow"></div>
-					</div>
-				</span>
-			</div>
-			<span class="stat-value">{{ contribution_data.stats.community | round(1) }}%</span>
-		</div>
-		<div class="stat-item">
-			<div class="stat-label">
-				Bot PRs
-				<span class="relative inline-block group">
-					<button type="button" class="theme-tooltip-btn">?</button>
-					<div class="tooltip-content">
-						<div>Percentage of PRs created by bots</div>
-						<div class="tooltip-arrow"></div>
-					</div>
-				</span>
-			</div>
-			<span class="stat-value">{{ contribution_data.stats.bot | round(1) }}%</span>
-		</div>
-	</div>
-
-	<div id="contribution-plot">
-		{% if contribution_data.plot_html %} {{ contribution_data.plot_html | safe
-		}} {% endif %}
-	</div>
-
-	<div class="chart-footer">
-		<h3>Role of PR Authors</h3>
-
-		<div class="chart-caption">
-			Counts all Pull Requests (PRs) by origin—Core Team, Community, or Bots—and
-			displays each group's share, highlighting external engagement,
-			sustainability, and the role of automation.
-		</div>
-	</div>
-
-	{% else %}
-	<p>No contribution data available</p>
+{% extends "components/charts/chart.html" %}
+{% from "components/charts/metric.html" import metric %}
+{% block title %}Contributor Distribution{% endblock %}
+{% block metrics %}
+{% if contribution_data and contribution_data.stats %}
+{{ metric(label="Core Team PRs", value=contribution_data.stats.core_team|round(1) ~ "%", tip="Percentage of PRs created
+by the core team") }}
+{{ metric(label="Community PRs", value=contribution_data.stats.community|round(1) ~ "%", tip="Percentage of PRs created
+by the community") }}
+{{ metric(label="Bot PRs", value=contribution_data.stats.bot|round(1) ~ "%", tip="Percentage of PRs created by bots") }}
+{% endif %}
+{% endblock %}
+{% block chart %}
+{% if contribution_data and contribution_data.stats %}
+<div id="contribution-plot">
+	{% if contribution_data.plot_html %}
+	{{ contribution_data.plot_html | safe }}
 	{% endif %}
 </div>
+{% else %}
+<p>No contribution data available</p>
+{% endif %}
+{% endblock %}
+{% block caption %}
+Counts all Pull Requests (PRs) by origin—Core Team, Community, or Bots—and displays each group's share, highlighting
+external engagement, sustainability, and the role of automation.
+{% endblock %}

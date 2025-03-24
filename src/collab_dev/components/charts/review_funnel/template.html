@@ -1,65 +1,25 @@
-<div class="review-funnel-chart">
-	<h2 class="chart-title">Review Funnel</h2>
-	<!-- Debug info -->
-	<div style="display: none">
-		Debug: Template loaded {% if review_data %} Has review data with: Total PRs:
-		{{ review_data.total_prs }} Reviewed: {{ review_data.reviewed_prs }}
-		Approved: {{ review_data.approved_prs }} Review Rate: {{
-		review_data.review_rate }}% Approval Rate: {{ review_data.approval_rate }}%
-		Has plot_html: {{ review_data.plot_html is defined }} {% else %} No review
-		data {% endif %}
-	</div>
-
-	{% if review_data %}
-	<div class="metrics-container">
-		<div class="metric">
-			<div class="metric-label">
-				Review Rate
-				<span class="relative inline-block group">
-					<button type="button" class="theme-tooltip-btn">?</button>
-					<div class="tooltip-content">
-						<div>Percentage of PRs that received reviews</div>
-						<div class="tooltip-arrow"></div>
-					</div>
-				</span>
-			</div>
-			<div class="metric-value">
-				{{ "%.1f"|format(review_data.review_rate) }}%
-			</div>
-		</div>
-
-		<div class="metric">
-			<div class="metric-label">
-				Approval Rate
-				<span class="relative inline-block group">
-					<button type="button" class="theme-tooltip-btn">?</button>
-					<div class="tooltip-content">
-						<div>Percentage of reviewed PRs that were approved</div>
-						<div class="tooltip-arrow"></div>
-					</div>
-				</span>
-			</div>
-			<div class="metric-value">
-				{{ "%.1f"|format(review_data.approval_rate) }}%
-			</div>
-		</div>
-	</div>
-
-	<div id="review-funnel-plot" class="mt-4">
-		{% if review_data.plot_html %} {{ review_data.plot_html | safe }} {% endif
-		%}
-	</div>
-
-	<div class="chart-footer">
-		<h3>Review Funnel</h3>
-
-		<div class="chart-caption">
-			Tracks Pull Requests (PRs) from creation to approval, showing how many
-			receive reviews and ultimately get approved.
-		</div>
-	</div>
-
-	{% else %}
-	<p>No review process data available</p>
+{% extends "components/charts/chart.html" %}
+{% from "components/charts/metric.html" import metric %}
+{% block title %}Review Funnel{% endblock %}
+{% block metrics %}
+{% if review_data %}
+{{ metric(label="Review Rate", value="%.1f"|format(review_data.review_rate) ~ "%", tip="Percentage of PRs that received
+reviews") }}
+{{ metric(label="Approval Rate", value="%.1f"|format(review_data.approval_rate) ~ "%", tip="Percentage of reviewed PRs
+that were approved") }}
+{% endif %}
+{% endblock %}
+{% block chart %}
+{% if review_data %}
+<div id="review-funnel-plot" class="mt-4">
+	{% if review_data.plot_html %}
+	{{ review_data.plot_html | safe }}
 	{% endif %}
 </div>
+{% else %}
+<p>No review process data available</p>
+{% endif %}
+{% endblock %}
+{% block caption %}
+Tracks Pull Requests (PRs) from creation to approval, showing how many receive reviews and ultimately get approved.
+{% endblock %}

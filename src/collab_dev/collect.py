@@ -1,8 +1,8 @@
 """
-GitHub repository URL validator for collab.dev
+GitHub repository data collector for collab.dev
 
-This module validates a GitHub repository URL provided as command line argument
-and returns the owner and repository name if valid.
+This module validates a GitHub repository URL provided as command line argument,
+extracts the owner and repository name, and collects data from the repository.
 """
 
 import argparse
@@ -42,7 +42,11 @@ def parse_github_repo_url(url: str) -> Optional[Tuple[str, str]]:
 
 def main():
     """
-    Main function to validate GitHub repository URL from command line arguments.
+    Main function that validates GitHub repository URL from command line arguments
+    and collects data from the specified repository.
+
+    Parses command line arguments to get the repository URL and the number of PRs to fetch,
+    validates the URL, and then processes the repository to collect and save data.
     """
     parser = argparse.ArgumentParser(description="Collect data from a GitHub repository")
     parser.add_argument("repo_url", help="GitHub repository URL (owner/repo_name)")
@@ -50,8 +54,8 @@ def main():
         "-n",
         "--num-prs",
         type=int,
-        default=10,
-        help="Number of PRs to fetch (default: 10)",
+        default=100,
+        help="Number of PRs to fetch (default: 100)",
     )
 
     args = parser.parse_args()
@@ -67,6 +71,9 @@ def main():
             result = process_repository(owner, repo_name, args.num_prs)
             print(f"Successfully collected data from {owner}/{repo_name}")
             print(f"Data saved to {result.get('path', 'output directory')}")
+            print(
+                f"You can view the report by running `pdm serve` and navigating to http://127.0.0.1:5000/{owner}/{repo_name}"
+            )
         except Exception as e:
             print(f"Error fetching repository data: {e}")
             sys.exit(1)

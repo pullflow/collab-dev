@@ -1,4 +1,4 @@
-# 🍩 collab-dev
+# 🍩 collab.dev
 
 ## Open Source Collaboration Metrics for Code Reviews
 
@@ -12,7 +12,7 @@ Cloud edition: <https://collab.dev>
 - **Visualization:** Generate interactive charts using Plotly.
 - **Command Line Interface:** Run analysis with a single command.
 - **Portable & Minimal:** Designed to work with CSV data to keep things simple.
-- **Extensible:** Add new charts by simply dropping them in the `components/charts` folder.
+- **Extensible:** Add new charts by adding them to the chart modules list.
 
 ---
 
@@ -21,7 +21,7 @@ Cloud edition: <https://collab.dev>
 ### Prerequisites
 
 - Python 3.12+
-- `pdm` (Python Dependency Manager)
+- Python Dependency Manager (`pdm`) - [Installation Instructions](https://pdm.fming.dev/latest/#installation)
 - A GitHub Personal Access Token with repository read permissions
 
 ### Installation
@@ -71,6 +71,8 @@ For example, to collect 100 PRs from the React repository using your GitHub toke
 GITHUB_TOKEN=your_token pdm run collect -n 100 facebook/react
 ```
 
+Alternatively, you can save your GitHub token in a `.env` file.
+
 ### View Metrics & Insights
 
 To analyze the data and view the results:
@@ -83,11 +85,11 @@ pdm serve
 
 2. Open your browser and navigate to:
 
-<http://127.0.0.1:5000>
+<http://127.0.0.1:8700>
 
 3. You'll see a list of repositories you've collected data for using the collect script.
 
-4. Click on any repository to view its detailed metrics and visualizations.
+4. Click on any repository to view its detailed metrics and visualizations at `/report/owner/repo`.
 
 ---
 
@@ -122,22 +124,22 @@ This structure allows for efficient data collection, storage, and analysis while
 
 ## Customization
 
-Charts are automatically discovered and rendered from the `src/collab_dev/components/charts/` directory. To add a custom chart:
+Charts are defined in the `CHART_MODULES` list in `src/collab_dev/components/charts/chart_renderer.py`. To add a custom chart:
 
-1. Create a new directory for your chart in `src/collab_dev/components/charts/`
-2. Implement a `render(repo_df)` function in the `__init__.py` of your chart directory
-3. Your chart will be automatically picked up and rendered in the dashboard
+1. Create a new module in `src/collab_dev/components/charts/`
+2. Implement a `render(repo_df)` function in your module
+3. Add your module to the `CHART_MODULES` list in `chart_renderer.py`
 
 Existing chart types include:
 
-- Approval time analysis
+- Workflow (Sankey diagram)
+- Contributor distribution patterns
 - Bot contribution analysis
-- Developer contribution patterns
-- PR merge time distribution
-- PR workflow (Sankey diagram)
 - Review coverage metrics
 - Review funnel analysis
 - Review turnaround time
+- Request Approval time analysis
+- Merge time distribution
 
 ---
 

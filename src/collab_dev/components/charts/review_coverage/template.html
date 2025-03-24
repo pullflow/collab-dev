@@ -1,40 +1,24 @@
-<div class="chart-container">
-	<h2 class="chart-title">Review Coverage</h2>
-	{% if coverage_data %}
-	<div class="metrics-container">
-		<div class="metric">
-			<div class="metric-label">
-				Review-Merge Rate
-				<span class="relative inline-block group">
-					<button type="button" class="theme-tooltip-btn">?</button>
-					<div class="tooltip-content">
-						<div>Percentage of merged PRs that received reviews</div>
-						<div class="tooltip-arrow"></div>
-					</div>
-				</span>
-			</div>
-			<div class="metric-value">
-				{{ "%.1f"|format(coverage_data.review_percentage) }}%
-			</div>
-		</div>
-	</div>
-
-	<div id="review-coverage-plot" class="mt-4">
-		{% if coverage_data.plot_html %} {{ coverage_data.plot_html | safe }} {%
-		endif %}
-	</div>
-
-	<div class="chart-footer">
-		<h3>Review Coverage</h3>
-
-		<div class="chart-caption">
-			Shows how many Pull Requests are merged with vs. without a review.
-			Reviewing code helps maintain quality, so tracking this ratio encourages
-			best practices.
-		</div>
-	</div>
-
-	{% else %}
-	<p>No review coverage data available</p>
+{% extends "components/charts/chart.html" %}
+{% from "components/charts/metric.html" import metric %}
+{% block title %}Review Coverage{% endblock %}
+{% block metrics %}
+{% if coverage_data %}
+{{ metric(label="Review-Merge Rate", value="%.1f"|format(coverage_data.review_percentage) ~ "%", tip="Percentage of
+merged PRs that received reviews") }}
+{% endif %}
+{% endblock %}
+{% block chart %}
+{% if coverage_data %}
+<div id="review-coverage-plot" class="mt-4">
+	{% if coverage_data.plot_html %}
+	{{ coverage_data.plot_html | safe }}
 	{% endif %}
 </div>
+{% else %}
+<p>No review coverage data available</p>
+{% endif %}
+{% endblock %}
+{% block caption %}
+Shows how many Pull Requests are merged with vs. without a review. Reviewing code helps maintain quality, so tracking
+this ratio encourages best practices.
+{% endblock %}

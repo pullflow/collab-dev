@@ -89,7 +89,14 @@ def create_pr_flow_chart(data) -> Optional[Dict]:
 def render(repo_df) -> str:
     pr_flow_data = prepare_sankey_data(repo_df)
     chart_html = create_pr_flow_chart(pr_flow_data)
+    pr_count = repo_df["pr_number"].nunique()
+    event_count = len(repo_df)
     if not chart_html:
         return "<div>No data available</div>"
 
-    return render_template("components/charts/pr_sankey/template.html", chart_content=chart_html)
+    return render_template(
+        "components/charts/workflow/template.html",
+        chart_content=chart_html,
+        pr_count=pr_count,
+        event_count=event_count,
+    )

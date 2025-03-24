@@ -1,0 +1,24 @@
+{% extends "components/charts/chart.html" %}
+{% from "components/charts/metric.html" import metric %}
+{% block title %}PR Merge Time{% endblock %}
+{% block metrics %}
+{% if pr_merge_data %}
+{{ metric(label="Overall Median Merge Time", value=humanize_time(pr_merge_data.median_time|default(0)), tip="Median time
+from PR creation to merge") }}
+{% endif %}
+{% endblock %}
+{% block chart %}
+{% if pr_merge_data %}
+<div id="pr-merge-time-plot" class="mt-4 mb-2">
+	{% if pr_merge_data.plot_html %}
+	{{ pr_merge_data.plot_html | safe }}
+	{% endif %}
+</div>
+{% else %}
+<p>No PR merge time data available</p>
+{% endif %}
+{% endblock %}
+{% block caption %}
+Displays a cumulative breakdown of how quickly different proportions of PRs get merged. This helps teams spot typical
+merge times and identify outliers, guiding process improvements.
+{% endblock %}
