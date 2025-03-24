@@ -1,6 +1,7 @@
 import plotly
 import plotly.graph_objects as go
 from components.charts.utils import (
+    apply_theme_to_figure,
     get_plotly_config,
     get_theme_colors,
     humanize_time,
@@ -124,6 +125,9 @@ def create_turnaround_distribution_plot(turnaround_data: dict) -> go.Figure:
         paper_bgcolor="white",
     )
 
+    # Apply theme to figure
+    fig = apply_theme_to_figure(fig)
+
     return fig
 
 
@@ -146,19 +150,25 @@ def render(repo_df):
         # Get plotly config from theme
         config = get_plotly_config()
 
-        # Set a more compact config
-        config["displayModeBar"] = False
-        config["responsive"] = True
-
         # Convert the figure to HTML
         plot_html = plotly.offline.plot(fig, include_plotlyjs=False, output_type="div", config=config)
 
-        # Add plot to template data
-        turnaround_data["plot_html"] = plot_html
+        # Prepare data for template
+        chart_data = {
+            "plot_html": plot_html,
+            "median_hours": turnaround_data["median_hours"],
+            "total_prs": turnaround_data["total_prs"],
+            "reviewed_prs": turnaround_data["reviewed_prs"],
+            "review_rate": turnaround_data["review_rate"],
+            "within_1h": turnaround_data["within_1h"],
+            "within_4h": turnaround_data["within_4h"],
+            "within_24h": turnaround_data["within_24h"],
+        }
 
+        # Pass the prepared data to the template
         return render_template(
             "components/charts/review_turnaround/template.html",
-            turnaround_data=turnaround_data,
+            turnaround_data=chart_data,
             humanize_time=humanize_time,
         )
 

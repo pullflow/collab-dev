@@ -3,10 +3,10 @@
 {% block title %}Review Turnaround{% endblock %}
 {% block metrics %}
 {% if turnaround_data %}
-{{ metric(label="Review Turnaround Time", value=humanize_time(turnaround_data.median_hours), tip="Median time to
-first review") }}
-{{ metric(label="Reviewed in ≤1 Hour", value="%.1f"|format(turnaround_data.within_1h) ~ "%", tip="PRs that
-received a review within 1 hour") }}
+{{ metric(label="Review Turnaround Time", value=humanize_time(turnaround_data.median_hours), tip="Median time to first
+review") }}
+{{ metric(label="Reviewed in ≤1 Hour", value="%.1f"|format(turnaround_data.within_1h) ~ "%", tip="PRs that received a
+review within 1 hour") }}
 {% endif %}
 {% endblock %}
 {% block chart %}
@@ -15,6 +15,8 @@ received a review within 1 hour") }}
 <div class="plotly-chart-container">
 	{% if turnaround_data.plot_html %}
 	{{ turnaround_data.plot_html | safe }}
+	{% else %}
+	<p>Chart data generated but plot HTML is missing</p>
 	{% endif %}
 </div>
 {% else %}
