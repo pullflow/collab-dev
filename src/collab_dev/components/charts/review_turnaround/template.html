@@ -3,9 +3,9 @@
 {% block title %}Review Turnaround{% endblock %}
 {% block metrics %}
 {% if turnaround_data %}
-{{ metric(label="Review Turnaround Time (RTT)", value=humanize_time(turnaround_data.median_hours), tip="Median time to
+{{ metric(label="Review Turnaround Time", value=humanize_time(turnaround_data.median_hours), tip="Median time to
 first review") }}
-{{ metric(label="PRs Reviewed Within 1 Hour", value="%.1f"|format(turnaround_data.within_1h) ~ "%", tip="PRs that
+{{ metric(label="Reviewed in ≤1 Hour", value="%.1f"|format(turnaround_data.within_1h) ~ "%", tip="PRs that
 received a review within 1 hour") }}
 {% endif %}
 {% endblock %}
