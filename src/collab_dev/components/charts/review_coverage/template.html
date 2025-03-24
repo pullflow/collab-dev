@@ -9,11 +9,9 @@ merged PRs that received reviews") }}
 {% endblock %}
 {% block chart %}
 {% if coverage_data %}
-<div id="review-coverage-plot" class="mt-4">
-	{% if coverage_data.plot_html %}
-	{{ coverage_data.plot_html | safe }}
-	{% endif %}
-</div>
+{% if coverage_data.plot_html %}
+{{ coverage_data.plot_html | safe }}
+{% endif %}
 {% else %}
 <p>No review coverage data available</p>
 {% endif %}
