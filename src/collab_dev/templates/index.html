@@ -4,16 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ title|default('🍩 Collab.dev Report') }}</title>
+  <title>🍩 collab.dev report</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
 </head>
 
 <body class="bg-gray-100 min-h-screen">
   <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">
-      {{ title|default('🍩 Collab.dev Report') }}
+    <h1 class="text-2xl text-center text-gray-800 mb-8 font-mono tracking-tight font-semibold">
+      🍩 collab.dev report
     </h1>
     {% block content %}
     <div class="bg-white shadow rounded-lg p-6 mt-6">
@@ -31,7 +30,7 @@
       {% endif %}
     </div>
     <div class="bg-white shadow rounded-lg p-6 mt-6">
-      <p class="text-gray-600 mb-4">Run the following command from the root of the project to collect repository data.
+      <p class="text-gray-600 mb-4">Run the following command from the root of the project to collect repository data:
       </p>
       <pre class="bg-gray-100 rounded-lg p-4">pdm collect -n {number of PRs} {owner}/{repo}</pre>
       <p class="text-gray-600 my-4">
@@ -51,7 +50,7 @@
       <div class="flex justify-center space-x-6 text-gray-600 mb-2">
         <a href="https://github.com/pullflow/collab-dev/issues" class="hover:text-blue-600 hover:underline">Issues</a>
         <a href="https://github.com/pullflow/collab-dev" class="hover:text-blue-600 hover:underline">GitHub</a>
-        <a href="https://collab.dev" class="hover:text-blue-600 hover:underline">Collab.dev Cloud Edition</a>
+        <a href="https://collab.dev" class="hover:text-blue-600 hover:underline">Cloud Edition: https://collab.dev</a>
       </div>
       <div class="text-gray-600 text-sm">
         MIT Licensed. Open source project by <a href="https://pullflow.com"
