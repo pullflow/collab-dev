@@ -133,13 +133,13 @@ Charts are defined in the `CHART_MODULES` list in `src/collab_dev/components/cha
 Existing chart types include:
 
 - Workflow (Sankey diagram)
-- Developer contribution patterns
+- Contributor distribution patterns
 - Bot contribution analysis
 - Review coverage metrics
 - Review funnel analysis
 - Review turnaround time
-- Approval time analysis
-- PR merge time distribution
+- Request Approval time analysis
+- Merge time distribution
 
 ---
 
