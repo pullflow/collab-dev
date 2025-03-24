@@ -22,7 +22,18 @@ def load(org: str, repo: str) -> pd.DataFrame:
         return pd.DataFrame()
 
     try:
-        df = pd.read_csv(data_path)
+        # Specify data types, particularly for the time column
+        df = pd.read_csv(
+            data_path,
+            parse_dates=["time"],  # Parse the time column as datetime
+            dtype={
+                "pr_number": int,
+                "event_type": str,
+                "actor": str,
+                "is_bot": bool,
+                "is_core_team": bool,
+            },
+        )
 
         # Log the shape
         logging.info(f"Loaded dataframe with shape: {df.shape}")

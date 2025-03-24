@@ -1,6 +1,6 @@
 <div class="p-4 flex flex-col gap-4 items-center">
-  <h2 class="h2 text-2xl font-bold">{% block title %}Chart Title{% endblock %}</h2>
-  <div class="flex flex-row gap-8">
+  <h2 class="h2 text-2xl font-bold mb-4">{% block title %}Chart Title{% endblock %}</h2>
+  <div class="flex flex-row gap-12">
     {% block metrics %}
     {% endblock %}
   </div>
@@ -9,7 +9,7 @@
     [ chart goes here ]
     {% endblock %}
   </div>
-  <div class="text-sm text-gray-600 max-w-lg text-center">
+  <div class="text-sm text-gray-600 max-w-lg border-l-2 border-gray-200 pl-4">
     {% block caption %}Description of chart{% endblock %}
   </div>
 </div>

@@ -30,9 +30,9 @@ def create_coverage_donut_plot(coverage_data: dict) -> dict:
                 textinfo="percent",
                 marker_colors=colors,  # Use theme colors
                 domain={
-                    "x": [0.05, 0.95],
-                    "y": [0, 0.85],
-                },  # Match wait time chart domain
+                    "x": [0.15, 0.85],
+                    "y": [0.05, 0.85],
+                },  # Balanced whitespace around the chart
                 textposition="inside",
                 hovertemplate="%{label}: %{customdata}<extra></extra>",
                 customdata=[
@@ -47,14 +47,14 @@ def create_coverage_donut_plot(coverage_data: dict) -> dict:
     # Update layout
     fig.update_layout(
         showlegend=True,
-        height=500,
-        margin=dict(t=5, b=120, l=30, r=30),
+        height=350,  # Reduce height to remove extra whitespace
+        margin=dict(t=10, b=10, l=10, r=10),  # Balanced margins around the chart
         legend=dict(
             orientation="h",
-            yanchor="bottom",
-            y=0.95,
-            xanchor="right",
-            x=1,
+            yanchor="top",
+            y=1.0,  # Position at the top of the chart
+            xanchor="center",  # Center the legend
+            x=0.5,  # Center position
             bgcolor="rgba(255,255,255,0.8)",
         ),
         autosize=True,

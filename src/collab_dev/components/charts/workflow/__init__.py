@@ -91,12 +91,17 @@ def render(repo_df) -> str:
     chart_html = create_pr_flow_chart(pr_flow_data)
     pr_count = repo_df["pr_number"].nunique()
     event_count = len(repo_df)
+
+    # Format numbers with comma separators and no decimals
+    formatted_pr_count = f"{pr_count:,}"
+    formatted_event_count = f"{event_count:,}"
+
     if not chart_html:
         return "<div>No data available</div>"
 
     return render_template(
         "components/charts/workflow/template.html",
         chart_content=chart_html,
-        pr_count=pr_count,
-        event_count=event_count,
+        pr_count=formatted_pr_count,
+        event_count=formatted_event_count,
     )

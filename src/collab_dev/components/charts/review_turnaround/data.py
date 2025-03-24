@@ -15,9 +15,6 @@ def calculate_rtt_trends(repo_df: pd.DataFrame) -> pd.DataFrame:
         if repo_df.empty:
             return pd.DataFrame()
 
-        # Convert time to datetime
-        repo_df["time"] = pd.to_datetime(repo_df["time"])
-
         # Get PR creation and first review request times for each PR
         pr_created = (
             repo_df[repo_df["event_type"] == "pr_created"]
@@ -154,6 +151,24 @@ def calculate_rtt_stats(repo_df: pd.DataFrame) -> dict:
 def get_review_turnaround_data(repo_df: pd.DataFrame) -> dict:
     """Process raw data into review turnaround metrics"""
     try:
+        # Validate input data
+        if repo_df is None or not isinstance(repo_df, pd.DataFrame):
+            return None
+
+        if repo_df.empty:
+            return None
+
+        # Check for required columns
+        required_columns = ["event_type", "pr_number", "time", "actor"]
+        missing_columns = [col for col in required_columns if col not in repo_df.columns]
+        if missing_columns:
+            return None
+
+        # Check for required event types
+        pr_created_events = repo_df[repo_df["event_type"] == "pr_created"]
+        if len(pr_created_events) == 0:
+            return None
+
         stats = calculate_rtt_stats(repo_df)
         if not stats:
             return None
